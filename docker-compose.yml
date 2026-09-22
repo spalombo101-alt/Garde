@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: garde
+      POSTGRES_PASSWORD: garde
+      POSTGRES_DB: garde_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://garde:garde@postgres:5432/garde_db
+      JWT_SECRET: dev-secret-key-change-in-production
+      NODE_ENV: production
+      CORS_ORIGIN: http://localhost:19000,http://localhost:8081,http://localhost:3000
+    depends_on:
+      - postgres
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
