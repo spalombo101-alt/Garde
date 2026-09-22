@@ -1,7 +1,7 @@
 import { Router, Response } from 'express';
-import { AuthRequest, authMiddleware } from '@middleware/auth.js';
-import * as userService from '@services/userService.js';
-import { SignupRequest, AuthRequest as IAuthRequest } from '@types/index.js';
+import { AuthRequest, authMiddleware } from '../middleware/auth.js';
+import * as userService from '../services/userService.js';
+import { SignupRequest, AuthRequest as IAuthRequest } from '../types/index.js';
 
 const router = Router();
 

@@ -1,4 +1,4 @@
-import { query } from '@db/connect.js';
+import { query } from '../db/connect.js';
 import { v4 as uuid } from 'uuid';
 
 export async function followUser(followerId: string, followingId: string) {
@@ -30,7 +30,7 @@ export async function unfollowUser(followerId: string, followingId: string) {
     [followerId, followingId]
   );
 
-  return result.rowCount > 0;
+  return (result.rowCount || 0) > 0;
 }
 
 export async function isFollowing(followerId: string, followingId: string) {
@@ -53,7 +53,7 @@ export async function getFollowers(userId: string, limit = 50, offset = 0) {
     [userId, limit, offset]
   );
 
-  return result.rows.map((row) => ({
+  return result.rows.map((row: any) => ({
     id: row.id,
     username: row.username,
     displayName: row.display_name,
@@ -73,7 +73,7 @@ export async function getFollowing(userId: string, limit = 50, offset = 0) {
     [userId, limit, offset]
   );
 
-  return result.rows.map((row) => ({
+  return result.rows.map((row: any) => ({
     id: row.id,
     username: row.username,
     displayName: row.display_name,

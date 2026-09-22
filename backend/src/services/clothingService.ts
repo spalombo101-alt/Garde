@@ -1,5 +1,5 @@
-import { query } from '@db/connect.js';
-import { ClothingItem } from '@types/index.js';
+import { query } from '../db/connect.js';
+import { ClothingItem } from '../types/index.js';
 import { v4 as uuid } from 'uuid';
 
 export async function addClothingItem(
@@ -100,7 +100,7 @@ export async function unlikeItem(userId: string, itemId: string) {
     [userId, itemId]
   );
 
-  return result.rowCount > 0;
+  return (result.rowCount || 0) > 0;
 }
 
 export async function getLikes(itemId: string) {
@@ -145,7 +145,7 @@ export async function getFeed(userId: string, limit = 20, offset = 0) {
     [userId, limit, offset]
   );
 
-  return result.rows.map((row) => ({
+  return result.rows.map((row: any) => ({
     id: row.id,
     userId: row.user_id,
     imageUrl: row.image_url,

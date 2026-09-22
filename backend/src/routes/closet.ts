@@ -1,6 +1,6 @@
 import { Router, Response } from 'express';
-import { AuthRequest, authMiddleware } from '@middleware/auth.js';
-import * as clothingService from '@services/clothingService.js';
+import { AuthRequest, authMiddleware } from '../middleware/auth.js';
+import * as clothingService from '../services/clothingService.js';
 
 const router = Router();
 

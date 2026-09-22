@@ -1,6 +1,6 @@
-import { query } from '@db/connect.js';
-import { User, SignupRequest, AuthRequest } from '@types/index.js';
-import { hashPassword, verifyPassword, generateToken } from '@utils/auth.js';
+import { query } from '../db/connect.js';
+import { User, SignupRequest, AuthRequest } from '../types/index.js';
+import { hashPassword, verifyPassword, generateToken } from '../utils/auth.js';
 import { v4 as uuid } from 'uuid';
 
 export async function signup(req: SignupRequest) {

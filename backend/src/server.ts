@@ -2,10 +2,10 @@ import 'express-async-errors';
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { testConnection } from '@db/connect.js';
-import authRoutes from '@routes/auth.js';
-import closetRoutes from '@routes/closet.js';
-import usersRoutes from '@routes/users.js';
+import { testConnection } from './db/connect.js';
+import authRoutes from './routes/auth.js';
+import closetRoutes from './routes/closet.js';
+import usersRoutes from './routes/users.js';
 
 dotenv.config();
 
