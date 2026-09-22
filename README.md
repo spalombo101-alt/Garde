@@ -1,6 +1,6 @@
 # Garde 👗
 
-A social app for sharing and exploring digital closets. Like Instagram, but for your wardrobe.
+A full-stack social app for sharing and exploring digital closets. Like Instagram, but for your wardrobe.
 
 ## MVP Features
 
@@ -12,39 +12,44 @@ A social app for sharing and exploring digital closets. Like Instagram, but for 
 
 ## Tech Stack
 
+### Frontend
 - **Framework**: React Native + Expo
 - **Routing**: Expo Router (file-based routing)
 - **State Management**: Zustand
 - **Language**: TypeScript
 - **UI**: React Native (iOS/Android) & React for Web
-- **Image Handling**: expo-image-picker
-- **Storage**: expo-secure-store for auth tokens
 
-## Project Structure
+### Backend
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Database**: PostgreSQL
+- **Language**: TypeScript
+- **Auth**: JWT
+
+## Project Structure (Monorepo)
 
 ```
 garde/
-├── app/                    # Expo Router pages
-│   ├── _layout.tsx        # Root layout with auth routing
-│   ├── auth.tsx           # Auth screen entry point
-│   ├── index.tsx          # Root redirect
-│   └── (tabs)/            # Tab-based navigation
-│       ├── _layout.tsx    # Tabs layout
-│       ├── feed.tsx       # Feed screen
-│       ├── closet.tsx     # Closet screen
-│       └── profile.tsx    # Profile screen
-├── src/
-│   ├── screens/           # Full screen components
-│   ├── components/        # Reusable components
-│   ├── stores/            # Zustand state stores
-│   │   ├── authStore.ts
-│   │   └── closetStore.ts
-│   ├── services/          # API clients
-│   ├── utils/             # Utility functions
-│   └── types/             # TypeScript types
-├── app.json               # Expo configuration
-├── package.json
-└── tsconfig.json          # TypeScript config
+├── app/                       # Expo Router pages
+├── src/                       # Frontend source
+│   ├── screens/              # UI screens
+│   ├── stores/               # Zustand state
+│   ├── services/             # API client
+│   ├── types/                # TypeScript types
+│   └── utils/                # Utilities
+├── backend/                  # Backend API (Node/Express)
+│   ├── src/
+│   │   ├── routes/          # API endpoints
+│   │   ├── services/        # Business logic
+│   │   ├── middleware/      # Auth middleware
+│   │   ├── db/              # Database & migrations
+│   │   └── types/           # TypeScript types
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── README.md            # Backend docs
+├── package.json             # Frontend
+├── app.json                 # Expo config
+└── tsconfig.json            # Frontend TypeScript
 ```
 
 ## Getting Started
@@ -52,6 +57,7 @@ garde/
 ### Prerequisites
 
 - Node.js 18+
+- PostgreSQL 12+
 - npm or yarn
 - Expo CLI: `npm install -g expo-cli`
 - iOS: Xcode (Mac only) or Expo Go app
@@ -61,31 +67,65 @@ garde/
 
 ```bash
 # Clone the repository
-git clone https://github.com/spalombo101-alt/garde.git
-cd garde
+git clone https://github.com/spalombo101-alt/Garde.git
+cd Garde
 
-# Install dependencies
+# Install frontend dependencies
 npm install
 
-# Start the development server
-npm start
+# Install backend dependencies
+cd backend
+npm install
+cd ..
 ```
 
-### Running on Devices
+### Running Backend
 
 ```bash
-# Web browser
-npm run web
+cd backend
 
-# iOS simulator (Mac only)
-npm run ios
+# Setup database
+cp .env.example .env
+# Update .env with your PostgreSQL connection
 
-# Android emulator
-npm run android
+# Run migrations
+npm run db:migrate
 
-# Or scan QR code with Expo Go app
+# Start server
+npm run dev
+```
+
+Backend will be available at: `http://localhost:3000`
+
+### Running Frontend
+
+```bash
+# In root directory (not backend)
+
+# Start Expo dev server
+npm start
+
+# Then choose:
+# - Press 'w' for web browser
+# - Press 'i' for iOS simulator
+# - Press 'a' for Android emulator
+# - Scan QR code with Expo Go app
+```
+
+## Full Stack Development
+
+**Terminal 1** (Backend):
+```bash
+cd backend
+npm run dev
+```
+
+**Terminal 2** (Frontend):
+```bash
 npm start
 ```
+
+Both will run simultaneously for testing.
 
 ## Screens Overview
 
